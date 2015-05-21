@@ -9,7 +9,7 @@ WITH RECURSIVE
       FROM shares AS s JOIN r_data_main AS d ON s.coll_id = d.coll_id)
 SELECT COUNT(*)
   FROM files AS f JOIN r_objt_access AS a ON f.data_id = a.object_id
-  WHERE a.user_id != ANY(ARRAY(SELECT user_id
+  WHERE a.user_id != ALL(ARRAY(SELECT user_id
                                  FROM r_user_main
                                  WHERE user_type_name = 'rodsadmin'
                                    OR user_name = 'bisque'

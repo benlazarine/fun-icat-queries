@@ -11,7 +11,7 @@ SELECT to_char(to_timestamp(CAST(create_ts AS INT)), 'YYYY-MM') AS share_month,
        COUNT(user_id) AS share_count
   FROM r_objt_access 
   WHERE objecT_id = ANY(ARRAY(SELECT DISTINCT data_id FROM files))
-    AND user_id != ANY(ARRAY(SELECT user_id
+    AND user_id != ALL(ARRAY(SELECT user_id
                                FROM r_user_main
                                WHERE user_type_name = 'rodsadmin'
                                  OR user_name = 'bisque'
