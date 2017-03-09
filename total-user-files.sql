@@ -8,5 +8,6 @@ WITH RECURSIVE
     UNION ALL
     SELECT c.coll_id, c.coll_name
       FROM r_coll_main AS c JOIN homes AS h ON c.parent_coll_name=h.coll_name)
-SELECT COUNT(DISTINCT d.data_id)
-  FROM homes AS h JOIN r_data_main AS d ON h.coll_id = d.coll_id;
+SELECT COUNT(d.data_id), SUM(d.data_size) / 1024 ^ 4
+  FROM homes AS h JOIN r_data_main AS d ON h.coll_id = d.coll_id
+  WHERE d.data_repl_num = 0
